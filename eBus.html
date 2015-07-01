@@ -1,0 +1,287 @@
+<head>
+  <title>eBus</title>
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+    {{> addBusForm}}
+    {{> adminpanel}}
+
+  <h1>Welcome to Online Bus Ticket Reservation</h1>
+  {{> chooseBus}}
+
+  {{> selectSeats}}
+
+  
+</body>
+
+<template name="chooseBus">
+<div class="panel panel-info" align="center">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Choose the Bus to Travel</div>
+  <div class="panel-body">
+    <p>
+	<form>
+
+<div class="row" >
+  <div class="col-lg-3">   
+<div class="input-group input-group-lg">
+  <span class="input-group-addon "  id="sizing-addon1">Source City:</span>
+  <select name="srcLoc" class="form-control" aria-describedby="sizing-addon1">
+  <option value="Bangalore">Bangalore</option>
+  <option value="Chennai">Chennai</option>
+  <option value="Coimbatore">Coimbatore</option>
+  <option value="Salem">Salem</option>
+  </select>
+  
+</div>
+<br>
+  </div><!-- /.col-lg-6 --> 
+  <div class="col-lg-3">   
+<div class="input-group input-group-lg">
+  <span class="input-group-addon "  id="sizing-addon1">Destination:</span>
+  <select name="destLoc" class="form-control" aria-describedby="sizing-addon1">
+  <option value="Bangalore">Bangalore</option>
+  <option value="Chennai">Chennai</option>
+  <option value="Coimbatore">Coimbatore</option>
+  <option value="Salem">Salem</option>
+  </select>
+  </div>
+</div>
+</div><!-- /.row -->
+
+
+
+
+<div class="row" >
+  <div class="col-lg-3">   
+<div class="input-group input-group-lg">
+  <span class="input-group-addon "  id="sizing-addon1">Bus Type:</span>
+  <select name="typeAC" class="form-control" aria-describedby="sizing-addon1">
+  <option value="AC">AC</option>
+  <option value="NON-AC">NON-AC</option>
+  </select>
+  
+</div>
+<br>
+  </div><!-- /.col-lg-6 --> 
+  <div class="col-lg-3">   
+<div class="input-group input-group-lg">
+  <span class="input-group-addon "  id="sizing-addon1">Seat Type:</span>
+  <select name="typeSleeper" class="form-control" aria-describedby="sizing-addon1">
+  <option value="Semi-Sleeper">Semi-Sleeper</option>
+  <option value="Sleeper">Sleeper</option>
+  </select>
+  </div>
+</div>
+</div><!-- /.row -->
+<br><br>
+
+            <input type="submit" class="btn btn-info" value="Buses On Route">
+  </form>
+  </p>
+
+    </div>
+
+
+  <div class="panel-footer"> </div>
+    </div>
+
+  <br><br>
+{{#if busList}}
+<div class="panel panel-success" align="center">
+  <!-- Default panel contents -->
+  <div class="panel-heading">List of Buses Available:</div>
+  <div class="panel-body">
+
+<table   class="table table-striped table-bordered table-hover" >
+<thead>
+<tr>
+	<th>Travels Name</th>
+	<th>Source</th>
+	<th>Destination</th>
+	<th>Timing</th>
+	<th>Seats Available</th>
+	<th>Cost per Seat</th>
+	<th>AC/NON-AC</th>
+	<th>Sleeper/Semi-Sleeper</th>
+</tr>
+</thead><tbody>
+{{#each busList}}
+<tr>
+	<td align="center">{{busName}}</td>
+	<td align="center">{{src}}</td>
+	<td align="center">{{dest}}</td>
+	<td align="center">{{time}}</td>
+	<td align="center">{{available}}</td>
+	<td align="center">{{costPerSeat}}</td>
+	<td align="center">{{type1}}</td>
+	<td align="center">{{type2}}</td>
+</tr>
+{{/each}}</tbody>
+</table>
+</div>
+  <div class="panel-footer"> </div>
+</div>
+{{/if}}
+</template>
+
+
+<template name="adminpanel">
+<div class="panel panel-warning" align="center">
+  <!-- Default panel contents -->
+  <div class="panel-heading" >MANAGE BUSES</div>
+  <div class="panel-body">
+    <p>
+{{#if busList}}
+<table class="table table-striped table-bordered table-hover" ><thead>
+<tr>
+	<th>Travels Name</th>
+	<th>Source</th>
+	<th>Destination</th>
+	<th>Timing</th>
+	<th>Seats Available</th>
+	<th>Cost per Seat</th>
+	<th>AC/NON-AC</th>
+	<th>Sleeper/Semi-Sleeper</th>
+</tr></thead><tbody>
+{{#each busList}}
+<tr class="bus {{selectedClass}}">
+	<td align="center">{{busName}}</td>
+	<td align="center">{{src}}</td>
+	<td align="center">{{dest}}</td>
+	<td align="center">{{time}}</td>
+	<td align="center">{{available}}</td>
+	<td align="center">{{costPerSeat}}</td>
+	<td align="center">{{type1}}</td>
+	<td align="center">{{type2}}</td>
+</tr>
+{{/each}}
+</tbody>
+</table>{{/if}}
+<br><br>
+
+            <input type="button" class="remove btn btn-warning" value="Remove BUS">
+	    	
+	</p></div>
+  <div class="panel-footer"> </div>
+	</div>
+</template>
+
+
+
+
+<template name="addBusForm">
+
+<div class="panel panel-danger" align="center">
+  <!-- Default panel contents -->
+  <div class="panel-heading">ADD A NEW BUS</div>
+  <div class="panel-body">
+        <form>
+
+<div class="row" >
+  <div class="col-lg-3">   
+<div class="input-group input-group-lg">
+  <span class="input-group-addon "  id="sizing-addon1">Name</span>
+  <input type="text" class="form-control" placeholder="Travels Name" name="NewBusName" aria-describedby="sizing-addon1">
+</div>
+<br>
+  </div><!-- /.col-lg-6 -->
+  <div class="col-lg-3">
+    <div class="input-group input-group-lg">
+  <span class="input-group-addon" id="sizing-addon2">City</span>
+  <input type="text" class="form-control" placeholder="Source" name="NewSource" aria-describedby="sizing-addon1">
+</div>
+  </div><!-- /.col-lg-6 -->
+</div><!-- /.row -->
+
+<div class="row" >
+  <div class="col-lg-3">   
+<div class="input-group input-group-lg">
+  <span class="input-group-addon" id="sizing-addon3">City</span>
+  <input type="text" class="form-control" placeholder="Destination" name="NewDestination" aria-describedby="sizing-addon1">
+</div>
+<br>
+  </div><!-- /.col-lg-6 -->
+  <div class="col-lg-3">
+    <div class="input-group input-group-lg">
+  <span class="input-group-addon" id="sizing-addon4">Time</span>
+  <input type="text" class="form-control" placeholder="0:00 AM - 0:00 PM" name="Timings" aria-describedby="sizing-addon1">
+</div>
+  </div><!-- /.col-lg-6 -->
+</div><!-- /.row -->
+
+
+<div class="row" >
+  <div class="col-lg-3">   
+<div class="input-group input-group-lg">
+  <span class="input-group-addon" id="sizing-addon5">Seat</span>
+  <input type="text" class="form-control" placeholder="Seat count" name="Seat" aria-describedby="sizing-addon1">
+</div>
+<br>
+  </div><!-- /.col-lg-6 -->
+  <div class="col-lg-3">
+    <div class="input-group input-group-lg">
+  <span class="input-group-addon" id="sizing-addon6">Cost</span>
+  <input type="text" class="form-control" placeholder="RS.00/seat" name="CostPerSeat" aria-describedby="sizing-addon1">
+</div>
+  </div><!-- /.col-lg-6 -->
+</div><!-- /.row -->
+
+
+
+<div class="row" >
+  <div class="col-lg-3">   
+<div class="input-group input-group-lg">
+  <span class="input-group-addon" id="sizing-addon7">Type1</span>
+  <input type="text" class="form-control" placeholder="AC/NON-AC" name="Type1" aria-describedby="sizing-addon1">
+</div>
+<br>
+  </div><!-- /.col-lg-6 -->
+  <div class="col-lg-3">
+    <div class="input-group input-group-lg">
+  <span class="input-group-addon" id="sizing-addon8">Type2</span>
+  <input type="text" class="form-control" placeholder="Sleeper/Semi-Sleeper" name="Type2" aria-describedby="sizing-addon1">
+</div>
+  </div><!-- /.col-lg-6 -->
+</div><!-- /.row -->
+
+            <input type="submit" class="btn btn-danger" value="ADD BUS">
+        </form>
+        <br><br>
+        </div>
+
+  <div class="panel-footer"> </div>
+  </div>
+   </template>
+
+
+   <template name="selectSeats">
+
+<div class="panel panel-primary">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Select the Seats</div>
+  <div class="panel-body">
+     	<div class="btn-group" data-toggle="buttons">
+  		<label class="btn btn-primary active">
+    <input type="checkbox" autocomplete="off" checked> Seat 1 
+ 		 </label>
+  		<label class="btn btn-primary">
+    <input type="checkbox" autocomplete="off"> Seat 2
+  		</label>
+  		<label class="btn btn-primary">
+    <input type="checkbox" autocomplete="off"> Seat 3
+  		</label>
+			</div>
+  </div>
+  <div class="panel-footer"> </div>
+</div>
+   </template>

@@ -1,0 +1,10 @@
+/* CSS declarations go here */
+.selected{
+    background-color: yellow;
+}
+label{
+	padding-left:5em;
+}
+.panel-heading{
+font-weight: bold;
+}
